@@ -28,14 +28,23 @@ window.findSolution = function(row, n, board, hasConflict, cb, onlyOne) {
     }
     board.togglePiece(row, i);
   }
-};
+};//O(n!);
 
 window.findNRooksSolution = function(n) {
   var board = new Board({n: n});
-  var solution = findSolution(0, n, board, 'hasAnyRooksConflicts', () => board.rows(), true);
+  var solution = findSolution(0, n, board, 'hasAnyRooksConflicts', () => board.roo90ws(), true);
 
   console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
   return solution;
+};//O(n!);
+
+window.findAllNRooksSolutions = function(n) {
+  var board = new Board({n: n});
+  var solutions = [];
+  findSolution(0, n, board, 'hasAnyRooksConflicts', 
+    () => solutions.push(board.rows().map((row) => row.slice())), 
+    false);
+  return solutions;
 };
 
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
@@ -45,29 +54,26 @@ window.countNRooksSolutions = function(n) {
   
   findSolution(0, n, board, 'hasAnyRooksConflicts', () => solutionCount++, false);
   
-  // for (var i = 0; i < n; i++) {
-  //   for (var j = 0; j < n; j++) {
-  //     var solution = findNRooksSolution(i, j);
-  //     if (solution !== undefined) {
-  //       solutions.push(solution);
-  //     }      
-  //   }
-  // }
-
-  // solutionCount = solutions.length;
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
-  return solutionCount;
+  return solutionCount; //O(n!);
 };
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other
 window.findNQueensSolution = function(n) {
   var board = new Board({n: n});
   var solution = findSolution(0, n, board, 'hasAnyQueensConflicts', () => board.rows(), true); //fixme
-  console.log('what is n ', n);
-  console.log(solution);
 
   console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution));
-  return solution;
+  return solution; //O(n!);
+};
+
+window.findAllNQueensSolutions = function(n) {
+  var board = new Board({n: n});
+  var solutions = [];
+  findSolution(0, n, board, 'hasAnyQueensConflicts', 
+    () => solutions.push(board.rows().map((row) => row.slice())), 
+    false);
+  return solutions;
 };
 
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
@@ -78,5 +84,5 @@ window.countNQueensSolutions = function(n) {
   findSolution(0, n, board, 'hasAnyQueensConflicts', () => solutionCount++, false);
 
   console.log('Number of solutions for ' + n + ' queens:', solutionCount);
-  return solutionCount;
+  return solutionCount; //O(n!);
 };
