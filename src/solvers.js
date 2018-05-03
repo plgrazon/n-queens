@@ -32,7 +32,7 @@ window.findSolution = function(row, n, board, hasConflict, cb, onlyOne) {
 
 window.findNRooksSolution = function(n) {
   var board = new Board({n: n});
-  var solution = findSolution(0, n, board, 'hasAnyRooksConflicts', () => board.roo90ws(), true);
+  var solution = findSolution(0, n, board, 'hasAnyRooksConflicts', () => board.rows(), true);
 
   console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
   return solution;
