@@ -149,28 +149,24 @@
       var arg = majorDiagonalColumnIndexAtFirstRow;
       var rows = this.get('n');
       var found = 0;
+      
       for (var i = 0; i < rows; i++) {
-        for (var j = 0; j < rows; j++) {
-          var diag = this._getFirstRowColumnIndexForMajorDiagonalOn(i, j);
-          if (diag === arg) {
-            if (this.get(i)[j] !== 0) {
-              found++;
-              
-              if (found > 1) {
-                return true;
-              }
-            } 
+        if (this.get(i)[arg] === 1) {
+          found++;
+          
+          if (found > 1) {
+            return true;
           }
-        }  
+        }
+        arg++;  
       }
-      return false; // fixme
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
       var rows = this.get('n');
       
-      for (var i = 0; i < rows; i++) {
+      for (var i = -rows + 1; i < rows; i++) {
         if (this.hasMajorDiagonalConflictAt(i)) {
           return true;
         }
@@ -187,18 +183,16 @@
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
       var rows = this.get('n');
       var found = 0;
+      var arg = minorDiagonalColumnIndexAtFirstRow;
       
       for (var i = 0; i < rows; i++) {
-        for (var j = 0; j < rows; j++) {
-          if (this._getFirstRowColumnIndexForMinorDiagonalOn(i, j) === minorDiagonalColumnIndexAtFirstRow) {
-            if (this.get(i)[j] !== 0) {
-              found++;
-              if (found > 1) {
-                return true;
-              }
-            }
+        if (this.get(i)[arg] === 1) {
+          found++;
+          if (found > 1) {
+            return true;
           }
         }
+        arg--;
       }
       return false; // fixme
     },
@@ -207,7 +201,7 @@
     hasAnyMinorDiagonalConflicts: function() {
       var rows = this.get('n');
       
-      for (var i = 0; i < rows; i++) {
+      for (var i = (rows * 2) - 1; i > 0; i--) {
         if (this.hasMinorDiagonalConflictAt(i)) {
           return true;
         }
