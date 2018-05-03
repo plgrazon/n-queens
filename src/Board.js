@@ -90,7 +90,7 @@
           }
         }
       }
-      return false; // fixme
+      return false; //O(n);
     },
 
     // test if any rows on this board contain conflicts
@@ -100,9 +100,9 @@
       for (var i = 0; i < rows; i++) {
         if (this.hasRowConflictAt(i)) {
           return true;
-        };
+        }
       }
-      return false; // fixme
+      return false; //O(n^2);
     },
 
 
@@ -124,7 +124,7 @@
           }
         }
       }
-      return false; // fixme
+      return false; //O(n);
     },
 
     // test if any columns on this board contain conflicts
@@ -136,7 +136,7 @@
           return true;
         }
       }
-      return false; // fixme
+      return false; //O(n^2);
     },
 
 
@@ -161,6 +161,7 @@
         arg++;  
       }
     },
+    //O(n);
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
@@ -171,9 +172,9 @@
           return true;
         }
       }
-      return false; // fixme
+      return false; //O(n^2);
     },
-
+    
 
 
     // Minor Diagonals - go from top-right to bottom-left
@@ -194,7 +195,7 @@
         }
         arg--;
       }
-      return false; // fixme
+      return false; //O(n);
     },
 
     // test if any minor diagonals on this board contain conflicts
@@ -206,7 +207,7 @@
           return true;
         }
       }
-      return false; // fixme
+      return false; //O(n^2);
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
